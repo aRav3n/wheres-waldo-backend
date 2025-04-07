@@ -28,7 +28,7 @@ model Score {
   time   Int
   string String
   game   Game   @relation(fields: [gameId], references: [id])
-  gameId Int    @unique
+  gameId Int
 }
 
 model Item {
@@ -38,5 +38,5 @@ model Item {
   x      Float
   y      Float
   game   Game   @relation(fields: [gameId], references: [id])
-  gameId Int    @unique
+  gameId Int
 }
