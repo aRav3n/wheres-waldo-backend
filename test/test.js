@@ -16,14 +16,12 @@ const allGames = [
     credit: "https://www.reddit.com/user/Chekavo/",
   },
 ];
-
 const singleGame = {
   id: 1,
   name: "AD 2222",
   src: "images/1/main.jpg",
   credit: "https://www.reddit.com/user/Chekavo/",
 };
-
 const allItems = [
   {
     id: 1,
@@ -66,8 +64,16 @@ const allItems = [
     gameId: 1,
   },
 ];
-
 const sanitizedItems = [];
+const testScores = [
+  {
+    name: "Name",
+    time: 0,
+    string: "Name finished the challenge in 0 seconds!",
+    gameId: 1,
+  },
+];
+let testToken;
 
 (() => {
   for (let i = 0; i < allItems.length; i++) {
@@ -77,15 +83,6 @@ const sanitizedItems = [];
   }
 })();
 
-const testScores = [
-  {
-    name: "Name",
-    time: 1,
-    string: "Name finished the challenge in 1 seconds!",
-    gameId: 1,
-  },
-];
-
 test("list all games route works", (done) => {
   request(app)
     .get("/")
@@ -94,17 +91,23 @@ test("list all games route works", (done) => {
     .expect(200, done);
 });
 
-test("list single game route works", (done) => {
-  request(app)
+test("list single game route, with token for start time, works", async () => {
+  const res = await request(app)
     .get("/game/1")
     .expect("Content-Type", /json/)
-    .expect(singleGame)
-    .expect(200, done);
+    .expect(200);
+
+  expect(res.body.game).toMatchObject(singleGame);
+
+  expect(res.body.token).toEqual(expect.any(String));
+
+  testToken = res.body.token;
 });
 
 test("posting new score works", (done) => {
   request(app)
     .post("/game/1/scores")
+    .set("Authorization", `Bearer ${testToken}`)
     .type("form")
     .send(testScores[0])
     .then((postRes) => {

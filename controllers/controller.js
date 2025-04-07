@@ -1,10 +1,7 @@
-// const db = require("../db/queries");
 const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
-
 const db = require("../db/queries");
+const timer = require("./timer");
 
 const alphaErr = "must only contain letters";
 const nameLengthErr = "must be between 1 and 10 characters";
@@ -38,11 +35,12 @@ function checkIfInTolerance(userCoordinate, correctCoordinate) {
 
 async function addUserScoreToGame(req, res) {
   const name = req.body.name;
-  const time = Number(req.body.time);
+  const time = timer.calculateTimeDifference(req);
   const string = `${name} finished the challenge in ${time} seconds!`;
   const gameId = Number(req.params.gameId);
 
   const score = await db.addScoreToDatabase(name, time, string, gameId);
+  console.log("score:", score);
 
   return res.status(200).json(score);
 }
@@ -82,7 +80,8 @@ async function listGameItems(req, res) {
 async function listSingleGameById(req, res) {
   const gameId = Number(req.params.gameId);
   const game = await db.listSingleGame(gameId);
-  return res.status(200).json(game);
+  const token = await timer.sign();
+  return res.status(200).json({ game, token });
 }
 
 async function listSingleGameScoresById(req, res) {

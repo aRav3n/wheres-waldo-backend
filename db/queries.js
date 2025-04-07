@@ -105,7 +105,7 @@ function addItemToDatabase(name, src, x, y, gameName) {
 function addScoreToDatabase(name, time, string, gameId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            if (!name || !time || !string || !gameId) {
+            if (!name || isNaN(time) || !string || !gameId) {
                 return null;
             }
             const score = yield prisma.score.create({

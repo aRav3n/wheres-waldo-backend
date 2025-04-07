@@ -93,7 +93,7 @@ async function addScoreToDatabase(
   gameId: number
 ) {
   try {
-    if (!name || !time || !string || !gameId) {
+    if (!name || isNaN(time) || !string || !gameId) {
       return null;
     }
     const score = await prisma.score.create({
