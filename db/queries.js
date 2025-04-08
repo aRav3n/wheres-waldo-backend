@@ -22,7 +22,9 @@ const client_1 = require("@prisma/client");
 const extension_accelerate_1 = require("@prisma/extension-accelerate");
 const databaseUrl = process.env.NODE_ENV === "test"
     ? process.env.TEST_DATABASE_URL
-    : process.env.DATABASE_URL;
+    : process.env.NODE_ENV === "development"
+        ? process.env.DEV_DATABASE_URL
+        : process.env.PROD_DATABASE_URL;
 const prisma = new client_1.PrismaClient({
     datasources: {
         db: {

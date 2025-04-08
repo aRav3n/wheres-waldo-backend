@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tsc && NODE_ENV=development && node app.js",
+    "dev": "npx tsc && NODE_ENV=development && node --watch app.js",
     "test": "npx tsc && NODE_ENV=test && jest"
   },
   "repository": {
