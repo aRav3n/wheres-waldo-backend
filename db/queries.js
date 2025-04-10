@@ -245,6 +245,9 @@ function listSingleGameScores(gameId) {
         try {
             const score = yield prisma.score.findMany({
                 where: { gameId },
+                orderBy: {
+                    time: "asc",
+                },
             });
             return score;
         }

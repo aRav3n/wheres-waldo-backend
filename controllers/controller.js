@@ -3,16 +3,9 @@ require("dotenv").config();
 const db = require("../db/queries");
 const timer = require("./timer");
 
-const alphaErr = "must only contain letters";
-const nameLengthErr = "must be between 1 and 10 characters";
-
 const validateUser = [
   body("name")
     .trim()
-    .isAlpha()
-    .withMessage(`First name alphaErr`)
-    .isLength({ min: 1, max: 10 })
-    .withMessage(`First name nameLengthErr`),
 ];
 
 function checkIfInTolerance(userCoordinate, correctCoordinate) {
@@ -33,17 +26,19 @@ function checkIfInTolerance(userCoordinate, correctCoordinate) {
   return false;
 }
 
-async function addUserScoreToGame(req, res) {
-  const name = req.body.name;
-  const time = timer.calculateTimeDifference(req);
-  const string = `${name} finished the challenge in ${time} seconds!`;
-  const gameId = Number(req.params.gameId);
+const addUserScoreToGame = [
+  validateUser,
+  async (req, res) => {
+    const name = req.body.name;
+    const time = timer.calculateTimeDifference(req);
+    const string = `${name} --- ${time} seconds`;
+    const gameId = Number(req.params.gameId);
 
-  const score = await db.addScoreToDatabase(name, time, string, gameId);
-  console.log("score:", score);
+    const score = await db.addScoreToDatabase(name, time, string, gameId);
 
-  return res.status(200).json(score);
-}
+    return res.status(200).json(score);
+  },
+];
 
 async function deleteUserScore(req, res) {
   const scoreId = Number(req.params.scoreId);
@@ -54,7 +49,7 @@ async function deleteUserScore(req, res) {
 async function checkCoordinates(req, res) {
   const x = req.body.x;
   const y = req.body.y;
-  const id = req.body.itemId;
+  const id = Number(req.params.itemId);
   let goodHit = false;
 
   const correctCoordinates = await db.listCoordinates(id);
@@ -87,7 +82,6 @@ async function listSingleGameById(req, res) {
 async function listSingleGameScoresById(req, res) {
   const id = Number(req.params.gameId);
   const scores = await db.listSingleGameScores(id);
-  // console.log("scores from controller.listSingleGameScoresById():", scores);
 
   return res.status(200).json(scores);
 }

@@ -227,6 +227,9 @@ async function listSingleGameScores(gameId: number) {
   try {
     const score = await prisma.score.findMany({
       where: { gameId },
+      orderBy: {
+        time: "asc",
+      },
     });
     return score;
   } catch (error) {
