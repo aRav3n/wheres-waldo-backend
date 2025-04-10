@@ -3,7 +3,10 @@ const app = express();
 const router = require("./routes/router");
 const cors = require("cors");
 
-const allowList = ["http://localhost:5173"];
+const allowList = [
+  "http://localhost:5173",
+  "https://98256945.wheres-waldo-frontend-top.pages.dev/",
+];
 const corsOptions = {
   origin: allowList,
   methods: ["GET", "POST", "PUT", "DELETE"],
