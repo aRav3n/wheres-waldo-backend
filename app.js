@@ -5,8 +5,9 @@ const cors = require("cors");
 
 const allowList = [
   "http://localhost:5173",
-  "https://98256945.wheres-waldo-frontend-top.pages.dev/",
+  "https://98256945.wheres-waldo-frontend-top.pages.dev",
 ];
+
 const corsOptions = {
   origin: allowList,
   methods: ["GET", "POST", "PUT", "DELETE"],
