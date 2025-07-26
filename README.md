@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Description](#description)
+- [Installation Instructions](#installation-instructions)
 - [Usage and Screenshots](#usage-and-screenshots)
 - [Technologies Used](#technologies-used)
 - [Dependencies and Credits](#dependencies-and-credits)
@@ -11,6 +12,44 @@
 ## Description
 
 RESTful API created as as a part of [The Odin Project](https://www.theodinproject.com/) curriculum.
+
+## Installation Instructions
+
+1. Clone or fork this repo
+2. cd into the project root directory (where the README.md file is located)
+3. Run the following in your terminal
+    1. ``` bash
+       npm init -y
+       npm install dependencies_separated_by_spaces
+       npm install devDependencies_separated_by_spaces --save-dev
+       psql
+       ```
+       
+    2. ``` bash
+       CREATE DATABASE database_name;
+       \c database_name
+       \q
+       ```
+      
+    3. ``` bash
+       npx tsc --init  
+       npx prisma  
+       npx prisma init  
+       code .env
+       ```
+1. In the .env file 
+   - ``` bash
+     NODE_ENV=development
+     TEST_DATABASE_URL=
+     DEV_DATABASE_URL=
+     DATABASE_URL=
+     SECRET_KEY=
+     ```
+1. `code prisma/schema.prisma`
+1. `npm run dev`
+   - `^` + `c` will end the process 
+1. After making updates to ./src/queries.ts you'll want to run this to recompile queries.js 
+   - `npx tsc`
 
 ## Usage and Screenshots
 
@@ -72,7 +111,6 @@ Here's a brief description of how to use the app.
 ## Project Structure
 
 ```bash
-
 ├──controllers/            # Controller files
 ├──db/                     # Compiled queries.js file
 ├──prisma/                 # Prisma models and migrations
@@ -80,5 +118,4 @@ Here's a brief description of how to use the app.
 ├──routes/                 # Router files
 ├──src/                    # Base queries.ts file
 └──test/                   # Test files
-
 ```
