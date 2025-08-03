@@ -3,10 +3,7 @@ require("dotenv").config();
 const db = require("../db/queries");
 const timer = require("./timer");
 
-const validateUser = [
-  body("name")
-    .trim()
-];
+const validateUser = [body("name").trim()];
 
 function checkIfInTolerance(userCoordinate, correctCoordinate) {
   const selectionTolerance = 0.025;

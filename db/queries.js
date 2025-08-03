@@ -20,6 +20,7 @@ exports.listSingleGame = listSingleGame;
 exports.listSingleGameScores = listSingleGameScores;
 const client_1 = require("@prisma/client");
 const extension_accelerate_1 = require("@prisma/extension-accelerate");
+require("dotenv");
 const databaseUrl = process.env.NODE_ENV === "test"
     ? process.env.TEST_DATABASE_URL
     : process.env.NODE_ENV === "development"

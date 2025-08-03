@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const allowList = [
   "http://localhost:5173",
+  "http://localhost:5174",
   "https://98256945.wheres-waldo-frontend-top.pages.dev",
 ];
 
