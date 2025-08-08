@@ -20,8 +20,7 @@ RESTful API created as as a part of [The Odin Project](https://www.theodinprojec
 3. Run the following in your terminal
     1. ``` bash
        npm init -y
-       npm install dependencies_separated_by_spaces
-       npm install devDependencies_separated_by_spaces --save-dev
+       npm install
        psql
        ```
        
